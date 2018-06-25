@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Added field named margin inside invoice. -->
+    <record model="ir.ui.view" id="invoice_margin_invoice_order_line_form">
+        <field name="name">invoice.order.line.tree.margin.view.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='invoice_line_ids']/tree" position="inside">
+                <field name="margin" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="margin"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
