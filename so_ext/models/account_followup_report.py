@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from odoo import models, fields, api, tools
 from datetime import datetime
 from odoo.tools.misc import formatLang, format_date, ustr
@@ -60,12 +63,16 @@ class report_account_followup_report(models.AbstractModel):
                 if is_overdue or is_payment:
                     total_issued += not aml.blocked and amount or 0
                 if is_overdue:
-                    date_due = {'name': date_due, 'class': 'color-red date', 'style': 'white-space:nowrap;text-align:center;color: red;'}
+                    date_due = {'name': date_due, 'class': 'color-red date',
+                                'style': 'white-space:nowrap;text-align:center;color: red;'}
                 if is_payment:
                     date_due = ''
                 amount = formatLang(self.env, amount, currency_obj=currency)
                 line_num += 1
-                columns = [format_date(self.env, aml.date, lang_code=lang_code), date_due, due_days, aml.invoice_id.name or aml.name,  aml.expected_pay_date and aml.expected_pay_date +' '+ aml.internal_note or '', {'name': aml.blocked, 'blocked': aml.blocked}, amount]
+                columns = [format_date(self.env, aml.date, lang_code=lang_code), date_due, due_days,
+                           aml.invoice_id.name or aml.name,  aml.expected_pay_date and
+                           aml.expected_pay_date +' '+ aml.internal_note or '',
+                           {'name': aml.blocked, 'blocked': aml.blocked}, amount]
                 if self.env.context.get('print_mode'):
                     columns = columns[:4]+columns[6:]
                 lines.append({
@@ -85,7 +92,8 @@ class report_account_followup_report(models.AbstractModel):
                 'class': 'total',
                 'unfoldable': False,
                 'level': 0,
-                'columns': [{'name': v} for v in ['']*(3 if self.env.context.get('print_mode') else 5) + [total >= 0 and _('Total Due') or '', totalXXX]],
+                'columns': [{'name': v} for v in ['']*(3 if self.env.context.get('print_mode') else 5) +
+                            [total >= 0 and _('Total Due') or '', totalXXX]],
             })
             if total_issued > 0:
                 total_issued = formatLang(self.env, total_issued, currency_obj=currency)
@@ -96,6 +104,7 @@ class report_account_followup_report(models.AbstractModel):
                     'class': 'total',
                     'unfoldable': False,
                     'level': 0,
-                    'columns': [{'name': v} for v in ['']*(3 if self.env.context.get('print_mode') else 5) + [_('Total Overdue'), total_issued]],
+                    'columns': [{'name': v} for v in ['']*(3 if self.env.context.get('print_mode') else 5) +
+                                [_('Total Overdue'), total_issued]],
                 })
         return lines

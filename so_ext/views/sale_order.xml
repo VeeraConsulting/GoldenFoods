@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <!-- Added field named ordered quantity-->
+    <!-- Added field named ordered quantity inside quotation tree view.-->
     <record id="sale_order_extended_view" model="ir.ui.view">
         <field name="name">sale.order.tree</field>
         <field name="model">sale.order</field>
@@ -15,7 +15,7 @@
         </field>
     </record>
 
-    <!-- Added field named ordered quantity-->
+    <!-- Added field named ordered quantity inside order tree view.-->
     <record id="sale_quotation_extended_view" model="ir.ui.view">
         <field name="name">sale.order.tree.extended</field>
         <field name="model">sale.order</field>
@@ -29,27 +29,33 @@
         </field>
     </record>
 
+    <!-- Displayed total of ordered, delivered and invoiced qty inside order line tree view.-->
     <record id="view_order_form_extended" model="ir.ui.view">
         <field name="name">sale.order.form.extended</field>
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']"
                        position="replace">
                      <field name="product_uom_qty"
-                            string="Ordered Qty" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
+                            string="Ordered Qty" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty,
+                            'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id}"
                             sum="Product UOM Qty"/>
                 </xpath>
-                <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='qty_delivered']"
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_delivered']"
                        position="replace">
-                     <field name="qty_delivered" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])], 'readonly': [('qty_delivered_updateable', '=', False)]}"
+                     <field name="qty_delivered"
+                     attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+                     'readonly': [('qty_delivered_updateable', '=', False)]}"
                      sum="Qty Delivered"/>
                 </xpath>
-                <xpath expr="//form/sheet/notebook/page[1]/field[@name='order_line']/tree/field[@name='qty_invoiced']"
+                <xpath expr="//field[@name='order_line']/tree/field[@name='qty_invoiced']"
                        position="replace">
-                    <field name="qty_invoiced" attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}"
+                    <field name="qty_invoiced"
+                           attrs="{'column_invisible': [('parent.state', 'not in', ['sale', 'done'])]}"
                     sum="Qty Invoiced"/>
                 </xpath>
             </field>
     </record>
+
 </odoo>

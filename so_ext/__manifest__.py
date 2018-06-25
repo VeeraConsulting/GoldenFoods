@@ -9,13 +9,18 @@
     ],
     'description': """
 
-	Sale Order Enhancement
-	
-     - Added Validation on credit limit and due date
-     - Added Sub Total of Deliverd Qty, Ordered Qty and Invoiced Qty
-     - Added two warrnings :
-       1. 'User Error',Selected partner's past invoice due from 60 days cannot creat new order for the customer.
-       2. 'User Error', Credit limit is left  %.2f only, cannot create order with %.2f amoun
+Sale Order Enhancement
+======================
+
+Added validation on credit limit and due date.
+
+Added sub total of deliverd qty, ordered qty and invoiced qty.
+
+Added two warnings :
+    1. The following customer has invoices outstanding more than 60 days - please request customer to clear all balances
+        over 60 days in order to generate new orders.
+    2. The sales order amount exceeds the customer's remaining credit limit - please request customer to pay older invoices
+        or ensure new sales order does not exceed available limit
  
         """,
     "demo": [],
