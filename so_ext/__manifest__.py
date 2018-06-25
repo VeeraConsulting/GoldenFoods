@@ -8,11 +8,9 @@
         'sale_management','account_invoicing', 'contacts', 'account_reports'
     ],
     'description': """
-     ##################################################
-                        
-		Sale Order Enhancement
+
+	Sale Order Enhancement
 	
-     ##################################################
      - Added Validation on credit limit and due date
      - Added Sub Total of Deliverd Qty, Ordered Qty and Invoiced Qty
      - Added two warrnings :
